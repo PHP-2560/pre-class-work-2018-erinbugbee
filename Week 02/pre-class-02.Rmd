@@ -1,7 +1,7 @@
 # pre-class
 
 
-Make sure you commit this often with meaningfull messages. 
+Make sure you commit this often with meaningful messages. 
 
 ### Background
 
@@ -22,11 +22,37 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 
 ```{r}
 exp.draws.1 <- rexp(n=200)
-mean(exp.draws.1)
-sd(exp.draws.1)
+mean1 <- mean(exp.draws.1)
+sd1 <- sd(exp.draws.1)
 ```
+The mean is `r mean1` and the standard deviation is `r sd1`.
 
 2. Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called  `exp.draws.0.2`,  `exp.draws.5`,  `exp.draws.7.3` and  `exp.draws.10`. 
+
+```{r}
+exp.draws.0.2 <- rexp(n=200, rate=0.2)
+mean0.2 <- mean(exp.draws.0.2)
+sd0.2 <- sd(exp.draws.0.2)
+
+exp.draws.5 <- rexp(n=200, rate=5)
+mean5 <- mean(exp.draws.5)
+sd5 <- sd(exp.draws.5)
+
+exp.draws.7.3 <- rexp(n=200, rate=7.3)
+mean7.3 <- mean(exp.draws.7.3)
+sd7.3 <- sd(exp.draws.7.3)
+
+exp.draws.10 <- rexp(n=200, rate=10)
+mean10 <- mean(exp.draws.10)
+sd10 <- sd(exp.draws.10)
+```
+For `exp.draws.0.2`, the mean is `r mean0.2` and the standard deviation is `r sd0.2`.
+
+For `exp.draws.5`, the mean is `r mean5` and the standard deviation is `r sd5`.
+
+For `exp.draws.7.3`, the mean is `r mean7.3` and the standard deviation is `r sd7.3`.
+
+For `exp.draws10`, the mean is `r mean10` and the standard deviation is `r sd10`.
 
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot.
     a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
