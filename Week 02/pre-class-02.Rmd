@@ -81,6 +81,26 @@ plot(exp.draws.0.2, exp.draws.10)
 
 For each plot, explain in words what's going on.
 
+a.
+```{r}
+means <- c(mean1, mean0.2, mean5, mean7.3, mean10)
+rates <- c(1, 0.2, 5, 7.3, 10)
+plot(rates, means)
+```
+As the rate increases, the mean decreases exponentially.
+
+b. 
+```{r}
+sds <- c(sd1, sd0.2, sd5, sd7.3, sd10)
+plot(rates, sds)
+```
+As the rate increases, the standard deviation decreases exponentially.
+
+c.
+```{r}
+plot(sds, means)
+```
+As the standard deviation increases, the mean increases linearly. The mean and the standard deviation are very similar.
 
 ### Part II (PHP 2560 Only)
 
