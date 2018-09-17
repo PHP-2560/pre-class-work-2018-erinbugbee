@@ -113,4 +113,48 @@ As the standard deviation increases, the mean increases linearly. The mean and t
 `big.exp.draws.1`, with 1100 rows and 1000 columns. Use this matrix as the input to the `hist()` function and save the result to a variable of your choice. What happens to your data?
     e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
     f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
+    
+a.
+```{r}
+big.exp.draws.1 <- rexp(n=1100000)
+mean(big.exp.draws.1)
+sd(big.exp.draws.1)
+```
+
+b.
+```{r}
+hist(big.exp.draws.1)
+x <- 0:10
+plot(1-exp(-x))
+plot(exp(-x))
+```
+The histogram does not match the function \(1-e^{-x}\). It should match the function \(e^{-x}\).
+
+c.
+```{r}
+big.exp.draws.greater <- which(big.exp.draws.1 > 1)
+mean(big.exp.draws.greater)
+```
+
+
+d.
+```{r}
+big.exp.draws.1.mat <- matrix(big.exp.draws.1, nrow = 1100, ncol = 1000)
+matrix.hist <- hist(big.exp.draws.1.mat)
+```
+The data is stored in a list of "counts" due to the binning of the data to create a histogram.
+
+e.
+```{r}
+mean371 <- mean(big.exp.draws.1.mat[,371])
+colMeans(big.exp.draws.1.mat)[371]
+```
+The mean of the 371st column of `big.exp.draws.1.mat` is `r mean371`
+
+f.
+```{r}
+col.means <- colMeans(big.exp.draws.1.mat)
+hist(col.means)
+```
+This histogram is approximately normally distributed because it plots the means the of each of the columns, while 5b. plots numbers from the standard exponential distribution. 
    
