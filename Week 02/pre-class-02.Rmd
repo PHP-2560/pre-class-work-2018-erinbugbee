@@ -25,6 +25,7 @@ exp.draws.1 <- rexp(n=200)
 mean1 <- mean(exp.draws.1)
 sd1 <- sd(exp.draws.1)
 ```
+
 The mean is `r mean1` and the standard deviation is `r sd1`.
 
 2. Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called  `exp.draws.0.2`,  `exp.draws.5`,  `exp.draws.7.3` and  `exp.draws.10`. 
@@ -46,6 +47,7 @@ exp.draws.10 <- rexp(n=200, rate=10)
 mean10 <- mean(exp.draws.10)
 sd10 <- sd(exp.draws.10)
 ```
+
 For `exp.draws.0.2`, the mean is `r mean0.2` and the standard deviation is `r sd0.2`.
 
 For `exp.draws.5`, the mean is `r mean5` and the standard deviation is `r sd5`.
@@ -69,6 +71,7 @@ b.
 ```{r}
 plot(exp.draws.1)
 ```
+
 c.
 ```{r}
 plot(exp.draws.0.2, exp.draws.10)
@@ -87,6 +90,7 @@ means <- c(mean1, mean0.2, mean5, mean7.3, mean10)
 rates <- c(1, 0.2, 5, 7.3, 10)
 plot(rates, means)
 ```
+
 As the rate increases, the mean decreases exponentially.
 
 b. 
@@ -94,12 +98,14 @@ b.
 sds <- c(sd1, sd0.2, sd5, sd7.3, sd10)
 plot(rates, sds)
 ```
+
 As the rate increases, the standard deviation decreases exponentially.
 
 c.
 ```{r}
 plot(sds, means)
 ```
+
 As the standard deviation increases, the mean increases linearly. The mean and the standard deviation are very similar.
 
 ### Part II (PHP 2560 Only)
@@ -128,6 +134,7 @@ x <- 0:10
 plot(1-exp(-x))
 plot(exp(-x))
 ```
+
 The histogram does not match the function \(1-e^{-x}\). It should match the function \(e^{-x}\).
 
 c.
@@ -142,6 +149,7 @@ d.
 big.exp.draws.1.mat <- matrix(big.exp.draws.1, nrow = 1100, ncol = 1000)
 matrix.hist <- hist(big.exp.draws.1.mat)
 ```
+
 The data is stored in a list of "counts" due to the binning of the data to create a histogram.
 
 e.
@@ -149,6 +157,7 @@ e.
 mean371 <- mean(big.exp.draws.1.mat[,371])
 colMeans(big.exp.draws.1.mat)[371]
 ```
+
 The mean of the 371st column of `big.exp.draws.1.mat` is `r mean371`
 
 f.
@@ -156,5 +165,6 @@ f.
 col.means <- colMeans(big.exp.draws.1.mat)
 hist(col.means)
 ```
+
 This histogram is approximately normally distributed because it plots the means the of each of the columns, while 5b. plots numbers from the standard exponential distribution. 
    
