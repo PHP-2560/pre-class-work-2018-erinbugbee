@@ -92,7 +92,12 @@ gapminder %>%
 
 ```{r}
 gapminder %>%
-  
+  group_by(continent, country) %>%
+  filter(continent != "Asia") %>%
+  select(continent, country, pop, year) %>%
+  mutate(avg_pop = mean(pop))%>%
+  ungroup() %>%
+  arrange(desc(avg_pop))
 ```
 
 
@@ -119,5 +124,5 @@ class(gapminder1992)
 
 ```{r}
 gapminder %>%
-  
+  filter((pop < lag(pop)) & (lifeExp > lag(lifeExp)))
 ```
