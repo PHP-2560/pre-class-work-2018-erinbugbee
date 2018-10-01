@@ -33,8 +33,11 @@ sum
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
 
 ```{r}
+#generate a sequence of all even numbers
 evens <- seq(0, 1000, by = 2)
 sum_evens <- 0
+
+#sum all even numbers
 for (even in evens) {
   sum_evens = sum_evens + even
 }
@@ -45,7 +48,9 @@ sum_evens
 C. Now, repeat A and B WITHOUT using a loop.
 
 ```{r}
+#add integers between 0 and 1000
 sum(seq(0, 1000))
+#add even integers between 0 and 1000
 sum(seq(0, 1000, by = 2))
 ```
 
@@ -73,6 +78,7 @@ survey.clean <- survey
 for (i in 1:nrow(survey.clean)) {
   for (j in 2:ncol(survey.clean)) {
     if (survey.clean[i, j] < 1 || survey.clean[i, j] > 5) {
+      #sets dataframe to NA at row i and column j
       survey.clean[i, j] <- NA
     }
   }
@@ -85,6 +91,7 @@ B. Now, again using a loop, add a new column to the dataframe called “invalid.
 ```{r}
 for (i in 1:nrow(survey.clean)) {
   for (j in 1:ncol(survey.clean)) {
+    #sums the number of NA values in each row and adds to column invalid.answers
     survey.clean$invalid.answers <- apply(survey.clean, 1, function(x) sum(is.na(x)))
   }
 }
