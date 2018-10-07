@@ -128,12 +128,21 @@ The rounded mean is 0 and the standard deviation is 1, confirming our expectatio
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
 
 ```{r}
-
+types <- unique(wcgs$typchd69)
+mean_weight <- data.frame(types, rep(NA, length(types)))
+names(mean_weight)[2] <- "mean.weight"
+for(i in 1:length(types)) {
+  mean_weight[i, 2] <- mean(wcgs[wcgs$typchd69 == types[i], ]$weight)
+}
+mean_weight
 ```
 
 B. Now do the same thing, but now don’t use a loop
 
 ```{r}
-
+library(dplyr)
+wcgs %>%
+  group_by(typchd69) %>%
+  summarise(mean(weight))
 ```
 
