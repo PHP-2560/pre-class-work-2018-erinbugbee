@@ -25,6 +25,7 @@ same_length <- function(x, y) {
 
 2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
 
+rnorm() is for simulating a univariate normal distribution, while mvrnorm() is for simulating a multivariate normal distribution. They both sample from some form of a normal distribution. The arguments in rnorm() are mean and sd, while the arguments in mvrnorm() are mu, and Sigma. In the univariate case, Sigma is the variance for mvrnorm(). To be more consistent, the arguments could have the same names for the mean and the standard deviation across functions. 
 
 
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
