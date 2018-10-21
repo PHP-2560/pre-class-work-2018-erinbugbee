@@ -33,12 +33,13 @@ With this project we will simulate a famous probability problem. This will not r
  
 ```{r}
 set.seed(1)
-gamblers_ruin <- function(bet, bankroll, prob) {
+gamblers_ruin <- function(bankroll, bet, prob) {
     duration <- 0
     while (bet > 0) {
       outcome <- rbinom(1, 1, prob)
       if (outcome == 1) {
         bankroll = bankroll + bet
+        #Raises bet by fixed fraction of bankroll + bet because bankroll*0.1 would not be raising in first round
         bet = (bet + bankroll)*0.1
       }
       else {
@@ -54,7 +55,7 @@ gamblers_ruin <- function(bet, bankroll, prob) {
 
 durations <- numeric()
 for (i in 1:5000) {
-    duration <- gamblers_ruin(100, 900, 0.5)
+    duration <- gamblers_ruin(900, 100, 0.5)
     durations <- c(durations, duration)
 }
 
@@ -87,7 +88,7 @@ probability_busted_5000
     d. the mean and variance of your bankroll after 100 hands (including busts).
     
 ```{r}
-gamblers_ruin_100 <- function(bet, bankroll, prob) {
+gamblers_ruin_100 <- function(bankroll, bet, prob) {
     duration <- 0
     while (bet > 0) {
       outcome <- rbinom(1, 1, prob)
@@ -112,7 +113,7 @@ gamblers_ruin_100 <- function(bet, bankroll, prob) {
 
 durations100 <- numeric()
 for (i in 1:5000) {
-    duration100 <- gamblers_ruin_100(100, 900, 0.5)
+    duration100 <- gamblers_ruin_100(900, 100, 0.5)
     durations100 <- c(durations100, duration100)
 }
 ```
@@ -131,22 +132,104 @@ var(durations100)
 Note: you *must* stop playing if your player has gone bust. How will you handle this in the `for` loop?
 
 2. **Markov Chains**. Suppose you have a game where the probability of winning on your first hand is 48%; each time you win, that probability goes up by one percentage point for the next game (to a maximum of 100%, where it must stay), and each time you lose, it goes back down to 48%. Assume you cannot go bust and that the size of your wager is a constant $100.
+
     a. Is this a fair game? Simulate one hundred thousand sequential hands to determine the size of your return. Then repeat this simulation 99 more times to get a range of values to calculate the expectation.
     
 ```{r}
+gamblers_ruin_MC <- function(bankroll, bet, prob) {
+    duration <- 0
+    p <- prob
+    while (bet > 0) {
+      probval <- runif(1)
+      if (probval <= prob) {
+        bankroll = bankroll + bet
+        #Increasing probability of winning by one percentage point
+        prob <- prob + 0.01
+      } else {
+        bankroll = bankroll - bet
+        prob <- p
+      }
+      duration = duration + 1
+      #Simulating one hundred thousand sequential hands
+      if (duration == 100000) {
+        break
+      }
+      if (bankroll < bet) {
+        break
+      }
+    }
+    #Returns bankroll for each iteration
+    return(bankroll)
+}
 
+size <- numeric()
+for (i in 1:100) {
+    duration_MC <- gamblers_ruin_MC(900, 100, 0.48)
+    size <- c(size, duration_MC)
+}
+print(gamblers_ruin_MC(900, 100, 0.48))
+mean(size)
 ```
-    
+  This is not a fair game because the expected size of return is 0.  
     
     b. Repeat this process but change the starting probability to a new value within 2% either way. Get the expected return after 100 repetitions. Keep exploring until you have a return value that is as fair as you can make it. Can you do this automatically?
     
 ```{r}
-
+expected <- numeric()
+for(k in 0:39) {
+  size_2 <- numeric()
+  for (i in 1:100) {
+      #Starting probability within 2% of 48%
+      duration_MC_2 <- gamblers_ruin_MC(900, 100, 0.46 + 0.001*k)
+      size_2 <- c(size_2, duration_MC_2)
+  }
+  expected_val = length(which(size_2 == 0))/100
+  expected <- c(expected, expected_val)
+}
+expected
 ```
-    
+The most fair expected return value is when the probability = 0.5.
+
     c. Repeat again, keeping the initial probability at 48%, but this time change the probability increment to a value different from 1%. Get the expected return after 100 repetitions. Keep changing this value until you have a return value that is as fair as you can make it. 
     
 ```{r}
+gamblers_ruin_MC_increment <- function(bankroll, bet, prob, increment) {
+    duration <- 0
+    p <- prob
+    while (bet > 0) {
+      probval <- runif(1)
+      if (probval <= prob) {
+        bankroll = bankroll + bet
+        #Increasing probability of winning by one percentage point
+        prob <- prob + increment
+      } else {
+        bankroll = bankroll - bet
+        prob <- p
+      }
+      duration = duration + 1
+      #Simulating one hundred thousand sequential hands
+      if (duration == 100000) {
+        break
+      }
+      if (bankroll < bet) {
+        break
+      }
+    }
+    #Returns bankroll for each iteration
+    return(bankroll)
+}
 
+expected_inc <- numeric()
+for(k in 0:40) {
+  size__inc <- numeric()
+  for (i in 1:100) {
+      #Starting probability within 2% of 48%
+      duration_MC_inc <- gamblers_ruin_MC_increment(900, 100, 0.48, 0.001*k)
+      size_inc <- c(size_inc, duration_MC_inc)
+  }
+  expected_val_inc = length(which(size_inc == 0))/100
+  expected_inc <- c(expected_inc, expected_val_inc)
+}
+expected_inc
 ```
     
