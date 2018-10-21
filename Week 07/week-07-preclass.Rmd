@@ -1,10 +1,9 @@
 ---
 title: "Simulations Pre-Class Project"
-date: "Due March 13, 2017 at 5:00pm"
 output:
-  html_document
-
-
+  pdf_document: default
+  html_document: default
+date: "Due March 13, 2017 at 5:00pm"
 ---
 
 <style type="text/css">
@@ -167,7 +166,6 @@ for (i in 1:100) {
     duration_MC <- gamblers_ruin_MC(900, 100, 0.48)
     size <- c(size, duration_MC)
 }
-print(gamblers_ruin_MC(900, 100, 0.48))
 mean(size)
 ```
   This is not a fair game because the expected size of return is 0.  
@@ -220,8 +218,8 @@ gamblers_ruin_MC_increment <- function(bankroll, bet, prob, increment) {
 }
 
 expected_inc <- numeric()
-for(k in 0:40) {
-  size__inc <- numeric()
+for(k in 0:50) {
+  size_inc <- numeric()
   for (i in 1:100) {
       #Starting probability within 2% of 48%
       duration_MC_inc <- gamblers_ruin_MC_increment(900, 100, 0.48, 0.001*k)
