@@ -13,6 +13,6 @@ ui <- fluidPage(
 )
 server <- function(input, output) {
   #Output the corresponding p-value for the input z_value using pnorm
-  output$p_value <- reactive({pnorm(input$z_value)})
+  output$p_value <- reactive({round(pnorm(input$z_value), digits = 4)})
 }
 shinyApp(ui = ui, server = server)
