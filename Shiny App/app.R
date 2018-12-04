@@ -4,8 +4,9 @@ ui <- fluidPage(
   titlePanel("Standard Normal Distribution"),
   sidebarLayout(
     sidebarPanel(
+      helpText("Type in a z value and get its corresponding p-value for a standard normal distribution."),
       #Give input of z_value with a default of 0
-      numericInput(inputId = "z_value", label = "Input a z value.", value = 0)
+      numericInput(inputId = "z_value", label = "z value", value = 0)
     ),
     mainPanel("The corresponding P-value is", textOutput("p_value"))
   )
